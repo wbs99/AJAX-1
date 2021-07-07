@@ -48,43 +48,39 @@ getXML.onclick = () => {
 
 
 getHTML.onclick = () => {
-    const request = new XMLHttpRequest()
-    request.open('GET','/3.html')
-    request.onload = () => {
-        const div = document.createElement('div')
-        div.innerHTML = request.response
-        document.body.appendChild(div)
+  const request = new XMLHttpRequest();
+  request.open("GET", "/3.html");
+  request.onreadystatechange = () => {
+    if (request.readyState === 4) {
+      if (request.status >= 200 && request.status < 300) {
+        const html = document.createElement("html");
+        html.innerHTML = request.response;
+        document.body.appendChild(html);
+      } else {
+        alert("加载 html 失败");
+      }
     }
-    request.onerror = () => {
-
-    }
-    request.send()
-}
+  };
+  request.send();
+};
 
 
 getJS.onclick = () => {
-    const request = new XMLHttpRequest()
-// request.open(method,url)
-    request.open('GET','/2.js')
-    request.onload = () => {
-        console.log('request.response')
-        console.log(request.response)
-
-        //创建 style 标签
-        const js = document.createElement('js')
-        //填写 style 内容
-        js.innerHTML = request.response
-        //插到头里面
-        document.head.appendChild(js)
-        
-    console.log('成功了')
+  const request = new XMLHttpRequest();
+  request.open("GET", "/2.js");
+  request.onreadystatechange = () => {
+    if (request.readyState === 4) {
+      if (request.status >= 200 && request.status < 300) {
+        const script = document.createElement("script");
+        script.innerHTML = request.response;
+        document.body.appendChild(script);
+      } else {
+        alert("加载 script 失败");
+      }
     }
-    request.onerror = () => {
-    console.log('失败了')
-    }
-    
-    request.send()
-}
+  };
+  request.send();
+};
 
 getCSS.onclick = () => {
   const request = new XMLHttpRequest();
